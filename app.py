@@ -101,8 +101,7 @@ try:
     st.text_area(
         "Generated Output",
         output_text,
-        height=400
-    )
+        height=400)
 
     st.code(output_text)
 
@@ -116,8 +115,7 @@ try:
         Paragraph(
             output_text.replace("\n", "<br/>"),
             styles["BodyText"]
-        )
-    ]
+        
 
     doc.build(story)
 
@@ -125,8 +123,8 @@ try:
         label="📄 Download PDF",
         data=pdf_buffer.getvalue(),
         file_name="KHAN_AI_Output.pdf",
-        mime="application/pdf"
-    )
+        mime="application/pdf")
+
 
 except Exception as e:
     st.error(f"Error: {e}")
@@ -147,7 +145,5 @@ st.download_button(
     label="📄 Download PDF",
     data=pdf_buffer.getvalue(),
     file_name="KHAN_AI_Output.pdf",
-    mime="application/pdf"
-)
-    except Exception:
-        st.error("AI service temporarily unavailable. Please try again later.")
+    mime="application/pdf")
+
