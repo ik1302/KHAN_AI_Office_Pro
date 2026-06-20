@@ -32,7 +32,13 @@ task = st.selectbox(
 )
 
 text = st.text_area("Enter Details")
+uploaded_file = None
 
+if task == "GR Analysis":
+    uploaded_file = st.file_uploader(
+        "Upload GR PDF",
+        type=["pdf"]
+    )
 if st.button("Generate") and text:
 
     prompt = f"""
