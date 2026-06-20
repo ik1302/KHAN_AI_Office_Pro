@@ -13,7 +13,10 @@ model = genai.GenerativeModel("gemini-2.5-flash")
 
 st.title("🏛️ KHAN AI Office Pro")
 st.caption("Government Office Smart Assistant")
-
+language = st.selectbox(
+    "Language",
+    ["Marathi", "English"]
+)
 task = st.selectbox(
     "Select Task",
     [
@@ -36,9 +39,10 @@ if st.button("Generate") and text:
 You are KHAN AI Office Pro.
 
 Task Type: {task}
-
+Language: {language}
 Rules:
-
+- If Language is Marathi, generate output in official Marathi.
+- If Language is English, generate output in professional official English.
 - Use professional Marathi language.
 - Follow Maharashtra Government drafting style.
 - Generate complete output.
@@ -55,7 +59,11 @@ User Request:
 
     try:
         response = model.generate_content(prompt)
-        st.write(response.text)
+        st.text_area(
+    "Generated Output",
+    response.text,
+    height=400
+)
 
     except Exception:
         st.error("AI service temporarily unavailable. Please try again later.")
