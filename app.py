@@ -1,6 +1,6 @@
 import streamlit as st
 import google.generativeai as genai
-
+from pypdf import PdfReader
 st.set_page_config(
     page_title="KHAN AI Office Pro",
     page_icon="🏛️",
