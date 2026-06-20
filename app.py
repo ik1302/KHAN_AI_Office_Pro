@@ -1,4 +1,5 @@
 import streamlit as st
+import google.generativeai as genai
 
 st.set_page_config(
     page_title="KHAN AI Office Pro",
@@ -6,10 +7,12 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("🏛️ KHAN AI Office Pro")
-st.subheader("Government Office Smart Assistant")
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-st.info("KHAN AI Office Pro Setup Successful")
+model = genai.GenerativeModel("gemini-2.5-flash")
+
+st.title("🏛️ KHAN AI Office Pro")
+st.caption("Government Office Smart Assistant")
 
 task = st.selectbox(
     "Select Task",
@@ -25,7 +28,34 @@ task = st.selectbox(
     ]
 )
 
-details = st.text_area("Enter Details")
+text = st.text_area("Enter Details")
 
-if st.button("Generate"):
-    st.success("AI Module Coming Next Step")
+if st.button("Generate") and text:
+
+    prompt = f"""
+You are KHAN AI Office Pro.
+
+Task Type: {task}
+
+Rules:
+
+- Use professional Marathi language.
+- Follow Maharashtra Government drafting style.
+- Generate complete output.
+- For Letter Drafting include Subject, Reference and Main Letter.
+- For Note Sheet generate official note format.
+- For Press Note generate media-ready content.
+- For Resolution Draft generate Gram Panchayat resolution.
+- For WhatsApp Message generate short official message.
+
+User Request:
+
+{text}
+"""
+
+    try:
+        response = model.generate_content(prompt)
+        st.write(response.text)
+
+    except Exception:
+        st.error("AI service temporarily unavailable. Please try again later.")
