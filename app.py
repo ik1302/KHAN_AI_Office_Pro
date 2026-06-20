@@ -1,6 +1,9 @@
 import streamlit as st
 import google.generativeai as genai
 from pypdf import PdfReader
+from io import BytesIO
+from reportlab.platypus import SimpleDocTemplate, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
 st.set_page_config(
     page_title="KHAN AI Office Pro",
     page_icon="🏛️",
