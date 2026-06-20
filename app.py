@@ -39,7 +39,26 @@ if task == "GR Analysis":
         "Upload GR PDF",
         type=["pdf"]
     )
-if st.button("Generate") and text:
+if st.button("Generate"):pdf_text = ""
+
+if task == "GR Analysis" and uploaded_file:
+
+    pdf = PdfReader(uploaded_file)
+
+    for page in pdf.pages:
+        page_text = page.extract_text()
+        if page_text:
+            pdf_text += page_text
+
+    text = f"""
+Uploaded GR Content:
+
+{pdf_text[:15000]}
+
+User Request:
+
+{text}
+"""
 
     prompt = f"""
 You are KHAN AI Office Pro.
