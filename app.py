@@ -42,7 +42,8 @@ if task == "GR Analysis":
         "Upload GR PDF",
         type=["pdf"]
     )
-if st.button("Generate"):pdf_text = ""
+if st.button("Generate"):
+    pdf_text = ""
 
 if task == "GR Analysis" and uploaded_file:
 
