@@ -43,10 +43,13 @@ if st.button("Generate"):pdf_text = ""
 
 if task == "GR Analysis" and uploaded_file:
 
+    pdf_text = ""
+
     pdf = PdfReader(uploaded_file)
 
     for page in pdf.pages:
         page_text = page.extract_text()
+
         if page_text:
             pdf_text += page_text
 
