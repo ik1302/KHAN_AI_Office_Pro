@@ -130,7 +130,6 @@ try:
 
 except Exception as e:
     st.error(f"Error: {e}")
-)
 
 st.code(output_text)
 
