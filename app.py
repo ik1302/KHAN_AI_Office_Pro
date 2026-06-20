@@ -95,11 +95,30 @@ User Request:
 
     try:
         response = model.generate_content(prompt)
+       output_text = response.text
         st.text_area(
     "Generated Output",
-    response.text,
+    output_text,
     height=400
 )
 
+st.code(output_text)
+
+pdf_buffer = BytesIO()
+
+doc = SimpleDocTemplate(pdf_buffer)
+
+styles = getSampleStyleSheet()
+
+story = [Paragraph(output_text.replace("\n", "<br/>"), styles["BodyText"])]
+
+doc.build(story)
+
+st.download_button(
+    label="📄 Download PDF",
+    data=pdf_buffer.getvalue(),
+    file_name="KHAN_AI_Output.pdf",
+    mime="application/pdf"
+)
     except Exception:
         st.error("AI service temporarily unavailable. Please try again later.")
