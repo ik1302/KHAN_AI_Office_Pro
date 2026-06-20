@@ -76,7 +76,12 @@ Rules:
 - For Press Note generate media-ready content.
 - For Resolution Draft generate Gram Panchayat resolution.
 - For WhatsApp Message generate short official message.
-
+- For GR Analysis provide:
+  1. Summary
+  2. Important Instructions
+  3. Action Points
+  4. Responsibility of BDO
+  5. Responsibility of Gram Panchayat
 User Request:
 
 {text}
