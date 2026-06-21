@@ -49,6 +49,7 @@ if task == "Excel Analysis":
     )
 
 if task == "GR Analysis":
+    
     uploaded_file = st.file_uploader(
         "Upload GR PDF",
         type=["pdf"]
@@ -77,7 +78,21 @@ User Request:
 
 {text}
 """
+    if task == "Excel Analysis" and uploaded_file:
 
+        df = pd.read_excel(uploaded_file)
+
+        excel_data = df.head(100).to_string()
+
+        text = f"""
+Excel Data:
+
+{excel_data}
+
+User Request:
+
+{text}
+"""
     prompt = f"""
 You are KHAN AI Office Pro.
 
@@ -94,6 +109,7 @@ Rules:
 - For Press Note generate media-ready content.
 - For Resolution Draft generate Gram Panchayat resolution.
 - For WhatsApp Message generate short official message.
+- For Excel Analysis provide summary, key findings, totals, trends and recommendations.
 - For GR Analysis provide:
   1. Summary
   2. Important Instructions
