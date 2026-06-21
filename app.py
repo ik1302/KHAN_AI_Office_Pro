@@ -34,12 +34,18 @@ task = st.selectbox(
         "Meeting Proceedings",
         "Resolution Draft",
         "Inspection Report"
+        "Excel Analysis"
     ]
 )
 
 text = st.text_area("Enter Details")
 
 uploaded_file = None
+if task == "Excel Analysis":
+    uploaded_file = st.file_uploader(
+        "Upload Excel File",
+        type=["xlsx"]
+    )
 
 if task == "GR Analysis":
     uploaded_file = st.file_uploader(
