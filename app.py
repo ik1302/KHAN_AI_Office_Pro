@@ -4,6 +4,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
 import google.generativeai as genai
 from pypdf import PdfReader
+import pandas as pd
 
 st.set_page_config(
     page_title="KHAN AI Office Pro",
