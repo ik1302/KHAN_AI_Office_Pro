@@ -33,7 +33,7 @@ task = st.selectbox(
         "Press Note",
         "Meeting Proceedings",
         "Resolution Draft",
-        "Inspection Report"
+        "Inspection Report",
         "Excel Analysis"
     ]
 )
