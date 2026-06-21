@@ -1,4 +1,7 @@
 import streamlit as st
+from io import BytesIO
+from reportlab.platypus import SimpleDocTemplate, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
 import google.generativeai as genai
 from pypdf import PdfReader
 
@@ -111,3 +114,27 @@ User Request:
     except Exception as e:
 
         st.error(f"Error: {e}")
+
+if 'output_text' in locals():
+
+    pdf_buffer = BytesIO()
+
+    doc = SimpleDocTemplate(pdf_buffer)
+
+    styles = getSampleStyleSheet()
+
+    story = [
+        Paragraph(
+            output_text.replace("\n", "<br/>"),
+            styles["BodyText"]
+        )
+    ]
+
+    doc.build(story)
+
+    st.download_button(
+        label="📄 Download PDF",
+        data=pdf_buffer.getvalue(),
+        file_name="KHAN_AI_Output.pdf",
+        mime="application/pdf"
+    )
