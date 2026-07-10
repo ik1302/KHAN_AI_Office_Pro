@@ -1,0 +1,17 @@
+{
+  "name": "khan-ai-office-pro",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "dependencies": {
+    "@google/genai": "^1.0.0",
+    "@netlify/functions": "^4.0.0",
+    "esbuild": "^0.25.0",
+    "exceljs": "^4.4.0",
+    "pdfjs-dist": "^5.0.0",
+    "tslib": "^2.8.0"
+  }
+}
