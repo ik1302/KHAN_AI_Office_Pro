@@ -1,0 +1,16 @@
+{
+  "name": "khan-ai-office-pro",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Government office smart assistant for drafting official Marathi and English correspondence",
+  "scripts": {
+    "build": "echo 'No build step required - static assets in public/ are served directly'"
+  },
+  "dependencies": {
+    "@google/genai": "^2.23.0"
+  },
+  "devDependencies": {
+    "@netlify/functions": "^6.0.0"
+  }
+}

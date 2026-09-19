@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="mr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>KHAN AI Office Pro — Government Office Smart Assistant</title>
+<meta name="description" content="Drafting assistant for Maharashtra Government offices — letters, note sheets, GR analysis, resolutions and reports in official Marathi or English." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Spectral:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Devanagari:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./styles.css" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231b2440'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23c98a3a' font-family='serif'%3E%E0%A4%95%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="masthead">
+  <div class="masthead__seal" aria-hidden="true">
+    <svg viewBox="0 0 64 64" role="presentation">
+      <circle cx="32" cy="32" r="30" class="seal-ring" />
+      <circle cx="32" cy="32" r="24" class="seal-ring seal-ring--inner" />
+      <g class="seal-rays">
+        <line x1="32" y1="10" x2="32" y2="54" /><line x1="10" y1="32" x2="54" y2="32" />
+        <line x1="16" y1="16" x2="48" y2="48" /><line x1="48" y1="16" x2="16" y2="48" />
+      </g>
+      <circle cx="32" cy="32" r="7" class="seal-core" />
+    </svg>
+  </div>
+  <div class="masthead__text">
+    <p class="eyebrow">Block Development Office · Government of Maharashtra</p>
+    <h1>KHAN <em>AI</em> Office Pro</h1>
+    <p class="subtitle">कार्यालयीन मसुदा सहाय्यक — Government Office Smart Assistant</p>
+  </div>
+</header>
+
+<main class="workspace">
+
+  <!-- ═══ CONTROL COLUMN ═══ -->
+  <form class="panel panel--form" id="draft-form" novalidate>
+    <div class="panel__rule" aria-hidden="true"></div>
+
+    <fieldset class="field field--language">
+      <legend class="label">भाषा / Language</legend>
+      <div class="segmented" role="radiogroup" aria-label="Output language">
+        <label class="segmented__option">
+          <input type="radio" name="language" value="Marathi" checked />
+          <span>मराठी</span>
+        </label>
+        <label class="segmented__option">
+          <input type="radio" name="language" value="English" />
+          <span>English</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend class="label">कामाचा प्रकार / Select Task</legend>
+      <div class="tasks" id="tasks"><!-- populated by app.js --></div>
+    </fieldset>
+
+    <div class="field" id="upload-field" hidden>
+      <label class="label" for="file-input" id="upload-label">Attach file</label>
+      <div class="dropzone" id="dropzone">
+        <input type="file" id="file-input" />
+        <div class="dropzone__body">
+          <svg class="dropzone__icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 16V4m0 0L8 8m4-4 4 4M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+          </svg>
+          <p class="dropzone__prompt" id="dropzone-prompt">Choose a file or drop it here</p>
+          <p class="dropzone__hint" id="dropzone-hint"></p>
+        </div>
+      </div>
+      <p class="filestatus" id="filestatus" role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="field">
+      <label class="label" for="details">तपशील / Enter Details</label>
+      <textarea id="details" name="details" rows="7" spellcheck="false"
+        placeholder="उदा. ग्रामपंचायत स्तरावर स्वच्छता मोहीम राबविण्याबाबत सर्व ग्रामविकास अधिकारी यांना सूचना पत्र…"></textarea>
+      <p class="fieldnote">Names, dates and reference numbers you supply are used as given. Anything missing is left as a marked blank.</p>
+    </div>
+
+    <button type="submit" class="generate" id="generate">
+      <span class="generate__label">मसुदा तयार करा · Generate</span>
+      <span class="generate__spinner" aria-hidden="true"></span>
+    </button>
+
+    <p class="error" id="error" role="alert" hidden></p>
+  </form>
+
+  <!-- ═══ OUTPUT COLUMN ═══ -->
+  <section class="panel panel--output" aria-labelledby="output-heading">
+    <div class="output__head">
+      <h2 class="label" id="output-heading">मसुदा / Generated Draft</h2>
+      <div class="output__actions" id="output-actions" hidden>
+        <button type="button" class="chip" id="copy-btn">Copy</button>
+        <button type="button" class="chip" id="txt-btn">.txt</button>
+        <button type="button" class="chip chip--accent" id="pdf-btn">Save as PDF</button>
+      </div>
+    </div>
+
+    <div class="paper" id="paper">
+      <div class="empty" id="empty">
+        <svg viewBox="0 0 48 48" aria-hidden="true" class="empty__mark">
+          <rect x="10" y="6" width="28" height="36" rx="2" />
+          <line x1="16" y1="16" x2="32" y2="16" /><line x1="16" y1="23" x2="32" y2="23" />
+          <line x1="16" y1="30" x2="26" y2="30" />
+        </svg>
+        <p class="empty__title">No draft yet</p>
+        <p class="empty__body">Pick a task, describe what the office needs, and the finished document appears here.</p>
+      </div>
+      <pre class="draft" id="draft" hidden></pre>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>Drafts are generated by AI and must be verified by the competent authority before issue.</p>
+</footer>
+
+<!-- Print-only rendering target, kept out of the screen layout -->
+<div class="printsheet" id="printsheet" aria-hidden="true"></div>
+
+<script src="./vendor/xlsx.full.min.js"></script>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
